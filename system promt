@@ -1,0 +1,371 @@
+Create an app for the Dominican water polo league that tracks league matches, usually on Mondays and Wednesday, and water polo players stats during a match.
+the app has to capture players stats and ranks them.
+
+this ranking will be used to balance teams for the next match according to present players in order to divide the players into teams that are competitive.
+
+ask all the questions needed in terms of rules, stats, gameplay, matches or anything necessary
+
+depending on how many players are present at the start of each league match, sort players onto teams.
+
+the best scenario is 7 players on each team, one goolie the rest field players, if there are less, use 6, 5 or 4 as necessary per team.
+
+game rule is the first team to score 5 goals wins the game, best of 3 games win the match.
+
+the winner plays next match with the rest available players balances based on their ranking.
+
+that should have a simple interface for scorekeepers to enter the stats in real-time by someone not playing, with an iPad or cel phone. the stats have to be available online for the public to see.
+
+Weighted system where certain stats are prioritized is preferred for the ranking system of the players.
+
+no game clock as the winning team is the first to score 5 goals
+
+the app should assign players for the next match based on registered players that are available on site. 
+
+every match should be the best of 3 sets and each set, the first to score 5 goals.
+
+as a measure to score, add a category for Unsportsmanlike behavior that takes points away for the player that does it, define Unsportsmanlike behavior as situations of excessive force, complaining to officials, bad words
+
+consider Unsportsmanlike behavior for goalie. 
+
+include keeping tracks for the official for the match.
+
+the official of the match can change between matches.
+
+the official should be evaluated and have a ranking score in order to keep track of the best official per season
+
+season is 10 weeks.
+
+the app should consider players registration before match and penalized those who register and are not available before start of the match in the ranking system.
+
+the penalization should be on the score of the player over the season, not the team as teams are built upon available players for the day.
+
+Penalty Types consider point deduction
+
+must include player registration
+
+official registration
+
+public page with all stats per role, official, goalie, player, teams, season.
+
+build everything needed for the app to be pushed to my GitHub repo.
+
+ask any question needed to perform this.
+
+players registration Will it be through the app or a website only
+
+information required for player registration is name, age, email, phone, position, weight, height, t-shirt size and swimsuit size
+
+matches can change week to week
+
+the match has to begin and end with the team available players, during match they can enter the game after a goal only.
+
+statistics should be tracked for each goals scored, assists, saves, fouls, and unsportsmanlike behavior.
+
+unsportsmanlike behavior has to be recorded in points deduction per incident, and as well has be cumulative per player.
+
+weight should be assigned to each statistic in the ranking system and goals scored are more important than assists. unsportsmanlike behavior is equally important in negative.
+
+unsportsmanlike behavior impact player rankings varying based on severity.
+
+for balancing teams use average ranking of players, separating goalies scores form field players. 
+
+the app should allow for player preferences in team assignments, friends wanting to play together is permitted but has to be balanced out with the opposing team.
+
+the information that is required for officials' registration is the same as players. 
+
+preferred technology stack React Native for mobile, Node.js for backend
+
+database system for storing data MongoDB
+
+the specific features for the user interface are easy navigation and real-time updates
+
+there are currently no apps for this
+
+the minimum number of players required for a match is 4, one goalie and 3 field players
+
+in the case thar there is only one goalie, the match should be played on one side of the pool, the same goalie for the two teams
+
+User Roles users, admins and scorekeepers
+Unsportsmanlike Behavior: only 3 levels should there be, and point deductions should be progressively 
+Public Access: the public stats page will be fully open to registered users
+
+Feedback Mechanism should be available for bugs and suggestions
+
+
+_____________________________________________________________________________________________________________________________________________________________________
+
+Create an app for the dominican waterpolo league that tracks league matches, usualy on mondays and wednesday, and waterpolo players stats during a match.
+the app has to capture players stats and ranks them.
+
+this ranking will be used to balance teams for the netx mathc acording to present players in order to divide the players into teams that are competitive.
+
+ask all the questions needed in terms of rules, stats, gameplay, matches or anything necesary
+
+depending on how many players are present at the start of each league match, sort playes onto temas.
+
+the best scenario is 7 players on each team, one golie the rest field players, if there are less, use 6, 5 or 4 as necesary per team.
+
+game rule is the first team to score 5 goals wins the game, best of 3 games win the match.
+
+the winer plays next match with the rest available players balances based on their ranking.
+
+that should have a simple interface for scorekeepers to enter the stats in real-time by someone not playing, with an ipad or cel phone. the stats have to be available online for the public to see.
+
+Weighted system where certain stats are prioritized is prefered for the ranking system of the players.
+
+no game clock as the winning team is the first to score 5 goals
+
+the app should assing players for the next match based on registered players that are available on site. 
+
+every match should be the best of 3 sets and each set, the first to score 5 goals.
+
+as a measure to score, add a category for Unsportsmanlike behavior that takes points away for the player that does it, define Unsportsmanlike behavior as situations of exesive force, complaining to officials, bad words
+
+consider Unsportsmanlike behavior for goalie. 
+
+include keeping tracks for the official for the match.
+
+the oficical of the match can change between matches.
+
+the official should be evaluated and have a ranking score in order to keep track of the best official per season
+
+season is 10 weeks.
+
+the app sould consider players registration before match and penalized those who register and are not avaiable before start of the match in the ranking sistem.
+
+the penalization should be on the score of the player over the season, not the team as teams are build upon available players for the day.
+
+Penalty Types consider point deduction
+
+must include player registration
+
+official registration
+
+public page with all stats per role, oficial, goalie, player, teams, season.
+
+build everithing nedded for the app to be pushed to my github repo.
+
+ask any question needed to perform this.
+
+players registration Will it be through the app or a website only
+
+information required for player registration is name, age, email, phone, position, weigth, heigth, t-shirt size and swimsuit size
+
+matches can change week to week
+
+the match has to begin and end with the team available players, during match they can enter the game after a goal only.
+
+statistics should be tracked for each goals scored, assists, saves, fouls, and unsportsmanlike behavior.
+
+unsportsmanlike behavior have to be recorded in points deduction per incident, and as well has be cumulative per player.
+
+weight should be assigned to each statistic in the ranking system and goals scored are more important than assists. unsportsmanlike behavior is equal important in negative.
+
+unsportsmanlike behavior impact player rankings varying based on severity.
+
+for balancing teams use average ranking of players, seperating goalies scores form field plauers. 
+
+the app should allow for player preferences in team assignments, friends wanting to play together is permited but has to be balanced out with the oposing team.
+
+the information that is required for officials registration is the same as players. 
+
+preferred technology stack React Native for mobile, Node.js for backend
+
+database system for storing data MongoDB
+
+the specific features for the user interface are easy navigation and real-time updates
+
+there are currently no apps for this
+
+the minimum number of players required for a match is 4, one goalie and 3 field players
+
+in the case thar there is only one goalie, the match should be played on one side of the pool, the same goalie for the two teams
+
+User Roles users, admins and scorekeepers
+Unsportsmanlike Behavior: only 3 levels should there be, and point deductions should be progresevely 
+Public Access: the public stats page will be fully open to registered users
+
+Feedback Mechanism should be available for bugs and suggestions
+
+
+
+
+1. Player Registration
+Q1: Should player registration be done through the app, a website, or both? both
+
+Q2: Should players be able to update their information (e.g., weight, height, position) after registration? yes
+
+Q3: Should there be a verification process for player registration (e.g., email or phone verification)? emamil or phone
+
+Q4: Should players be able to register for multiple positions (e.g., field player and goalie)? yes
+
+2. Official Registration
+Q5: Should officials (referees) have a separate registration process or share the same process as players?  same, if there are no officials, a player can become one during a game.
+
+Q6: Should officials be able to self-register, or should admins register them? self register.
+
+Q7: Should officials have access to the app to view their rankings and match assignments? yes
+
+3. Match Scheduling
+Q8: Should the app allow admins to manually schedule matches, or should it auto-generate schedules based on player availability? auto generate.
+
+Q9: Should there be a deadline for players to confirm their availability before a match (e.g., 24 hours before)? 15 minutes previous
+
+Q10: Should the app send reminders to players about upcoming matches? yes
+
+4. Team Balancing
+Q11: Should the app prioritize balancing teams based on player rankings, or should it allow manual overrides by admins?
+
+Q12: Should the app allow players to indicate preferences for teammates (e.g., friends they want to play with)?
+
+Q13: How should the app handle situations where there is only one goalie available? Should the goalie switch sides after each set?
+
+5. Statistics Tracking
+Q14: Should the app track additional stats like blocks, steals, or turnovers, or are goals, assists, saves, fouls, and unsportsmanlike behavior sufficient?
+
+Q15: Should the app allow scorekeepers to edit stats after a match is completed (e.g., in case of errors)?
+
+Q16: Should the app track stats per set or aggregate them for the entire match?
+
+6. Ranking System
+Q17: What should the default weights be for each stat (e.g., goals = 5 points, assists = 3 points, saves = 2 points, unsportsmanlike behavior = -5 points)?
+
+Q18: Should the app allow admins to adjust the weights for the ranking system?
+
+Q19: Should the ranking system reset at the start of each season, or should it carry over from previous seasons?
+
+7. Unsportsmanlike Behavior
+Q20: Should the app allow scorekeepers to specify the severity of unsportsmanlike behavior (e.g., Level 1 = -2 points, Level 2 = -5 points, Level 3 = -10 points)?
+
+Q21: Should the app track the type of unsportsmanlike behavior (e.g., excessive force, verbal abuse) for reporting purposes?
+
+Q22: Should players be suspended after accumulating a certain number of unsportsmanlike behavior points?
+
+8. Public Stats Page
+Q23: Should the public stats page show real-time updates during matches, or should updates be delayed until the match is completed?
+
+Q24: Should the public stats page allow filtering by player, team, or season?
+
+Q25: Should the public stats page include a leaderboard for players, goalies, and officials?
+
+9. Feedback Mechanism
+Q26: Should the feedback mechanism allow users to submit bug reports and suggestions directly through the app?
+
+Q27: Should admins be able to respond to feedback within the app, or should feedback be sent to an external email?
+
+10. User Roles
+Q28: Should admins have the ability to create, edit, or delete user accounts (players, officials, scorekeepers)?
+
+Q29: Should scorekeepers have access to all matches, or should they only be assigned to specific matches?
+
+Q30: Should players and officials have access to their own stats and rankings, or should this be limited to admins and the public stats page?
+
+11. Technology Stack
+Q31: Should the app include push notifications for match reminders, stat updates, or ranking changes?
+
+Q32: Should the app include a chat or messaging feature for players, officials, and admins?
+
+Q33: Should the app include a payment system for league fees or merchandise (if applicable)?
+
+12. Edge Cases
+Q34: How should the app handle situations where not enough players are available for a match (e.g., fewer than 4 players)?
+
+Q35: Should the app allow players to join mid-season, and if so, how should their initial ranking be determined?
+
+Q36: Should the app include a feature for rescheduling matches due to unforeseen circumstances (e.g., weather)?
+
+Proposed Features
+Based on your requirements, here’s a list of proposed features for the app:
+
+Player Features
+Register and update profile (name, age, email, phone, position, weight, height, t-shirt size, swimsuit size).
+
+Confirm availability for matches.
+
+View personal stats and rankings.
+
+Indicate teammate preferences.
+
+Scorekeeper Features
+Enter real-time stats (goals, assists, saves, fouls, unsportsmanlike behavior).
+
+Edit stats post-match (if needed).
+
+Assign officials to matches.
+
+Admin Features
+Manage player and official registrations.
+
+Schedule matches and assign teams.
+
+Adjust ranking system weights.
+
+Handle feedback and bug reports.
+
+Public Features
+View real-time or post-match stats.
+
+Filter stats by player, team, or season.
+
+View leaderboards for players, goalies, and officials.
+
+Technical Features
+Push notifications for match reminders and updates.
+
+Feedback mechanism for bugs and suggestions.
+
+Real-time database updates using MongoDB.
+
+Simple and intuitive UI/UX for mobile and web.
+
+Next Steps
+Confirm the answers to the questions above.
+
+Finalize the ranking system weights and unsportsmanlike behavior penalties.
+
+Define the UI/UX requirements for the app (e.g., wireframes).
+
+Set up the GitHub repository and initial project structure (React Native for frontend, Node.js for backend, MongoDB for database).
+
+Let me know if you’d like me to proceed with setting up the GitHub repository or if you need further clarification on any of the points above!
+
+
+
+
+
+Q1: both
+Q2: yes
+Q3: email or phone
+Q4: yes
+Q5: same
+Q6: self register
+Q7: yes
+Q8: auto generate
+Q9: 15 minutes before, but make it configurable
+Q10: yes
+Q11: based on player rankings
+Q12: yes
+Q13: a field player has to become a goalie, no game if there are no golie
+Q14: add stats like blocks, steals, and turnovers
+Q15: yes, to all players, but validated by an admin
+Q16: per set, and per match
+Q17: yes
+Q18: yes
+Q19: per season
+Q20: yes
+Q21: yes
+Q22: yes
+Q23: real time
+Q24: yes
+Q25: yes
+Q26: yes
+Q27: sent by email
+Q28: create yes, delete no, only admins
+Q29: read access to all matches, edit only to to assigned matches
+Q30: read acces to own stats and ranking
+Q31: yes
+Q32: yes, per group, players can create group chat, officials their own, as well as a only admin chat.
+Q33: yes
+Q34: no game; or an official can become a player.
+Q35: yes, and to be able to have a ranking visible if they have a minimun set of games played.
+Q36: yes
