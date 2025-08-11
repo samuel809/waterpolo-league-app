@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominican Water Polo League</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4A49B8'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-primary dark:bg-primary-dark shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-swimming-pool text-white text-2xl"></i>
+                    <h1 class="text-white text-xl font-bold">DR Water Polo League</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="currentUser" class="text-white"></span>
+                    <select id="userRole" class="bg-white text-gray-900 rounded px-3 py-1 text-sm">
+                        <option value="player">Player</option>
+                        <option value="scorekeeper">Scorekeeper</option>
+                        <option value="admin">Admin</option>
+                        <option value="official">Official</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- Tab Navigation -->
+        <div class="flex flex-wrap border-b border-gray-200 dark:border-gray-700 mb-6">
+            <button class="tab-btn active" data-tab="dashboard">
+                <i class="fas fa-home mr-2"></i>Dashboard
+            </button>
+            <button class="tab-btn" data-tab="registration">
+                <i class="fas fa-user-plus mr-2"></i>Registration
+            </button>
+            <button class="tab-btn" data-tab="matches">
+                <i class="fas fa-calendar mr-2"></i>Matches
+            </button>
+            <button class="tab-btn" data-tab="scorekeeper">
+                <i class="fas fa-edit mr-2"></i>Scorekeeper
+            </button>
+            <button class="tab-btn" data-tab="stats">
+                <i class="fas fa-chart-bar mr-2"></i>Stats & Rankings
+            </button>
+            <button class="tab-btn" data-tab="admin">
+                <i class="fas fa-cog mr-2"></i>Admin
+            </button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-blue-500 text-white p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-blue-100">Total Players</p>
+                            <p class="text-3xl font-bold" id="totalPlayers">0</p>
+                        </div>
+                        <i class="fas fa-users text-4xl text-blue-200"></i>
+                    </div>
+                </div>
+                <div class="bg-green-500 text-white p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-green-100">Active Season</p>
+                            <p class="text-3xl font-bold">Week <span id="currentWeek">1</span></p>
+                        </div>
+                        <i class="fas fa-calendar text-4xl text-green-200"></i>
+                    </div>
+                </div>
+                <div class="bg-purple-500 text-white p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-purple-100">Next Match</p>
+                            <p class="text-lg font-bold" id="nextMatch">Monday</p>
+                        </div>
+                        <i class="fas fa-clock text-4xl text-purple-200"></i>
+                    </div>
+                </div>
+                <div class="bg-orange-500 text-white p-6 rounded-lg shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-orange-100">Officials</p>
+                            <p class="text-3xl font-bold" id="totalOfficials">0</p>
+                        </div>
+                        <i class="fas fa-whistle text-4xl text-orange-200"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
+                <div id="recentActivity" class="space-y-3">
+                    <!-- Activity items will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Tab -->
+        <div id="registration" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Player Registration -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Player Registration</h3>
+                    <form id="playerRegistrationForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Full Name" required class="form-input">
+                            <input type="number" placeholder="Age" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="email" placeholder="Email" required class="form-input">
+                            <input type="tel" placeholder="Phone" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="number" step="0.1" placeholder="Weight (kg)" required class="form-input">
+                            <input type="number" step="0.01" placeholder="Height (m)" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <select name="position" class="form-input">
+                                <option value="">Select Position</option>
+                                <option value="field">Field Player</option>
+                                <option value="goalie">Goalie</option>
+                                <option value="both">Both</option>
+                            </select>
+                            <select name="tshirtSize" class="form-input">
+                                <option value="">T-Shirt Size</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                            <select name="swimsuitSize" class="form-input">
+                                <option value="">Swimsuit Size</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded font-semibold transition-colors">
+                            Register Player
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Official Registration -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Official Registration</h3>
+                    <form id="officialRegistrationForm" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="text" placeholder="Full Name" required class="form-input">
+                            <input type="number" placeholder="Age" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="email" placeholder="Email" required class="form-input">
+                            <input type="tel" placeholder="Phone" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <input type="number" step="0.1" placeholder="Weight (kg)" required class="form-input">
+                            <input type="number" step="0.01" placeholder="Height (m)" required class="form-input">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <select name="experience" class="form-input">
+                                <option value="">Experience Level</option>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                            <select name="tshirtSize" class="form-input">
+                                <option value="">T-Shirt Size</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                            <select name="swimsuitSize" class="form-input">
+                                <option value="">Swimsuit Size</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold transition-colors">
+                            Register Official
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Registered Players List -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">Registered Players</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-100 dark:bg-gray-700">
+                                <th class="px-4 py-2 text-left">Name</th>
+                                <th class="px-4 py-2 text-left">Position</th>
+                                <th class="px-4 py-2 text-left">Ranking</th>
+                                <th class="px-4 py-2 text-left">Status</th>
+                                <th class="px-4 py-2 text-left">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="playersTable">
+                            <!-- Players will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Matches Tab -->
+        <div id="matches" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Match Availability -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Match Availability</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                            <span>Monday, Week 1</span>
+                            <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600">
+                                Available
+                            </button>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                            <span>Wednesday, Week 1</span>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">
+                                Unavailable
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Assignment -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Team Assignment</h3>
+                    <div class="space-y-4">
+                        <button id="generateTeams" class="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded font-semibold">
+                            Generate Balanced Teams
+                        </button>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded">
+                                <h4 class="font-bold text-blue-800 dark:text-blue-200 mb-2">Team A</h4>
+                                <div id="teamA" class="text-sm space-y-1">
+                                    <!-- Team A players will be listed here -->
+                                </div>
+                            </div>
+                            <div class="bg-red-100 dark:bg-red-900 p-3 rounded">
+                                <h4 class="font-bold text-red-800 dark:text-red-200 mb-2">Team B</h4>
+                                <div id="teamB" class="text-sm space-y-1">
+                                    <!-- Team B players will be listed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Match Schedule -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Match Schedule</h3>
+                    <div class="space-y-3">
+                        <div class="border-l-4 border-blue-500 pl-3">
+                            <p class="font-semibold">Monday Match</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">8:00 PM - Pool A</p>
+                            <p class="text-xs text-gray-500">12 players confirmed</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-3">
+                            <p class="font-semibold">Wednesday Match</p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">8:00 PM - Pool A</p>
+                            <p class="text-xs text-gray-500">8 players confirmed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scorekeeper Tab -->
+        <div id="scorekeeper" class="tab-content hidden">
+            <!-- Match Selection -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">Active Match</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <select id="activeMatch" class="form-input">
+                        <option value="">Select Match</option>
+                        <option value="match1">Monday - Week 1</option>
+                        <option value="match2">Wednesday - Week 1</option>
+                    </select>
+                    <select id="currentSet" class="form-input">
+                        <option value="1">Set 1</option>
+                        <option value="2">Set 2</option>
+                        <option value="3">Set 3</option>
+                    </select>
+                    <button id="startMatch" class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold">
+                        Start Match
+                    </button>
+                </div>
+            </div>
+
+            <!-- Live Scorecard -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-100 dark:bg-blue-900 rounded-lg p-6">
+                    <h4 class="text-xl font-bold text-blue-800 dark:text-blue-200 mb-4">Team A</h4>
+                    <div class="text-center mb-4">
+                        <span class="text-6xl font-bold text-blue-600 dark:text-blue-300" id="scoreA">0</span>
+                    </div>
+                    <div class="space-y-2">
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onclick="addGoal('A')">
+                            <i class="fas fa-plus mr-2"></i>Goal
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="bg-green-500 hover:bg-green-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('A', 'assist')">
+                                Assist
+                            </button>
+                            <button class="bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('A', 'save')">
+                                Save
+                            </button>
+                            <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('A', 'foul')">
+                                Foul
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-sm" onclick="addUnsportsmanlike('A')">
+                                Misconduct
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-red-100 dark:bg-red-900 rounded-lg p-6">
+                    <h4 class="text-xl font-bold text-red-800 dark:text-red-200 mb-4">Team B</h4>
+                    <div class="text-center mb-4">
+                        <span class="text-6xl font-bold text-red-600 dark:text-red-300" id="scoreB">0</span>
+                    </div>
+                    <div class="space-y-2">
+                        <button class="w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded" onclick="addGoal('B')">
+                            <i class="fas fa-plus mr-2"></i>Goal
+                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button class="bg-green-500 hover:bg-green-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('B', 'assist')">
+                                Assist
+                            </button>
+                            <button class="bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('B', 'save')">
+                                Save
+                            </button>
+                            <button class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded text-sm" onclick="addStat('B', 'foul')">
+                                Foul
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-sm" onclick="addUnsportsmanlike('B')">
+                                Misconduct
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player Selection Modal (Hidden by default) -->
+            <div id="playerSelectionModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+                    <h3 class="text-lg font-bold mb-4">Select Player</h3>
+                    <div id="playersList" class="space-y-2 max-h-60 overflow-y-auto">
+                        <!-- Players will be populated here -->
+                    </div>
+                    <div class="flex justify-end space-x-3 mt-4">
+                        <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" onclick="closePlayerModal()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Set Results -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">Set Results</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-gray-100 dark:bg-gray-700 rounded">
+                        <h4 class="font-bold">Set 1</h4>
+                        <p class="text-2xl font-bold" id="set1Score">0 - 0</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 dark:bg-gray-700 rounded">
+                        <h4 class="font-bold">Set 2</h4>
+                        <p class="text-2xl font-bold" id="set2Score">0 - 0</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-100 dark:bg-gray-700 rounded">
+                        <h4 class="font-bold">Set 3</h4>
+                        <p class="text-2xl font-bold" id="set3Score">0 - 0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats & Rankings Tab -->
+        <div id="stats" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Player Rankings -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Player Rankings</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-yellow-100 dark:bg-yellow-900 rounded">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-yellow-600 dark:text-yellow-300 font-bold">1</span>
+                                <span class="font-semibold">Carlos Rodriguez</span>
+                            </div>
+                            <span class="text-yellow-600 dark:text-yellow-300 font-bold">850 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-gray-600 dark:text-gray-300 font-bold">2</span>
+                                <span class="font-semibold">Miguel Santos</span>
+                            </div>
+                            <span class="text-gray-600 dark:text-gray-300 font-bold">820 pts</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-orange-100 dark:bg-orange-900 rounded">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-orange-600 dark:text-orange-300 font-bold">3</span>
+                                <span class="font-semibold">Jose Ramirez</span>
+                            </div>
+                            <span class="text-orange-600 dark:text-orange-300 font-bold">780 pts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Official Rankings -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Official Rankings</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-green-100 dark:bg-green-900 rounded">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-green-600 dark:text-green-300 font-bold">1</span>
+                                <span class="font-semibold">Ana Martinez</span>
+                            </div>
+                            <span class="text-green-600 dark:text-green-300 font-bold">9.2/10</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-gray-600 dark:text-gray-300 font-bold">2</span>
+                                <span class="font-semibold">Pedro Gonzalez</span>
+                            </div>
+                            <span class="text-gray-600 dark:text-gray-300 font-bold">8.8/10</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Filters -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">Detailed Statistics</h3>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <select class="form-input">
+                        <option value="all">All Players</option>
+                        <option value="field">Field Players</option>
+                        <option value="goalies">Goalies</option>
+                    </select>
+                    <select class="form-input">
+                        <option value="season">Full Season</option>
+                        <option value="week">This Week</option>
+                        <option value="match">Single Match</option>
+                    </select>
+                    <select class="form-input">
+                        <option value="goals">Goals</option>
+                        <option value="assists">Assists</option>
+                        <option value="saves">Saves</option>
+                        <option value="fouls">Fouls</option>
+                    </select>
+                    <button class="bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded font-semibold">
+                        Apply Filters
+                    </button>
+                </div>
+
+                <!-- Stats Table -->
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-100 dark:bg-gray-700">
+                                <th class="px-4 py-2 text-left">Player</th>
+                                <th class="px-4 py-2 text-left">Goals</th>
+                                <th class="px-4 py-2 text-left">Assists</th>
+                                <th class="px-4 py-2 text-left">Saves</th>
+                                <th class="px-4 py-2 text-left">Fouls</th>
+                                <th class="px-4 py-2 text-left">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody id="statsTable">
+                            <!-- Stats will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Tab -->
+        <div id="admin" class="tab-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Season Management -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Season Management</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span>Current Season Week:</span>
+                            <select class="form-input w-32">
+                                <option value="1">Week 1</option>
+                                <option value="2">Week 2</option>
+                                <option value="3">Week 3</option>
+                                <option value="4">Week 4</option>
+                                <option value="5">Week 5</option>
+                                <option value="6">Week 6</option>
+                                <option value="7">Week 7</option>
+                                <option value="8">Week 8</option>
+                                <option value="9">Week 9</option>
+                                <option value="10">Week 10</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Registration Deadline:</span>
+                            <input type="number" value="15" class="form-input w-32" placeholder="Minutes">
+                        </div>
+                        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-semibold">
+                            Update Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ranking Weights -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">Ranking System Weights</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span>Goals:</span>
+                            <input type="number" value="5" class="form-input w-20" min="0" max="10">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Assists:</span>
+                            <input type="number" value="3" class="form-input w-20" min="0" max="10">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Saves:</span>
+                            <input type="number" value="4" class="form-input w-20" min="0" max="10">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Blocks:</span>
+                            <input type="number" value="2" class="form-input w-20" min="0" max="10">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Steals:</span>
+                            <input type="number" value="2" class="form-input w-20" min="0" max="10">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Turnovers:</span>
+                            <input type="number" value="-1" class="form-input w-20" min="-10" max="0">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Fouls:</span>
+                            <input type="number" value="-1" class="form-input w-20" min="-10" max="0">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Misconduct L1:</span>
+                            <input type="number" value="-2" class="form-input w-20" min="-10" max="0">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Misconduct L2:</span>
+                            <input type="number" value="-5" class="form-input w-20" min="-10" max="0">
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Misconduct L3:</span>
+                            <input type="number" value="-10" class="form-input w-20" min="-20" max="0">
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded font-semibold">
+                            Save Weights
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management -->
+            <div class="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 class="text-xl font-bold mb-4">User Management</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded font-semibold">
+                        Export Data
+                    </button>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded font-semibold">
+                        Send Reminders
+                    </button>
+                    <button class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded font-semibold">
+                        Reset Season
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div id="messageContainer" class="fixed top-4 right-4 z-50"></div>
+
+    <style>
+        /* Custom styles */
+        .tab-btn {
+            @apply px-4 py-2 mr-2 text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors border-b-2 border-transparent;
+        }
+        .tab-btn.active {
+            @apply text-primary border-primary font-semibold;
+        }
+        .tab-content {
+            @apply transition-opacity duration-300;
+        }
+        .tab-content.hidden {
+            @apply opacity-0 pointer-events-none absolute;
+        }
+        .form-input {
+            @apply w-full px-3 py-2 text-base border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100;
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            html {
+                color-scheme: dark;
+            }
+        }
+    </style>
+
+    <script>
+        // Initialize dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+
+        // Sample data
+        let players = [
+            { id: 1, name: "Carlos Rodriguez", position: "field", ranking: 850, age: 25, email: "carlos@email.com", phone: "809-123-4567", weight: 75, height: 1.8, available: true },
+            { id: 2, name: "Miguel Santos", position: "goalie", ranking: 820, age: 28, email: "miguel@email.com", phone: "809-123-4568", weight: 80, height: 1.85, available: true },
+            { id: 3, name: "Jose Ramirez", position: "field", ranking: 780, age: 23, email: "jose@email.com", phone: "809-123-4569", weight: 70, height: 1.75, available: false },
+            { id: 4, name: "Luis Martinez", position: "field", ranking: 750, age: 26, email: "luis@email.com", phone: "809-123-4570", weight: 78, height: 1.82, available: true },
+            { id: 5, name: "Pedro Gonzalez", position: "goalie", ranking: 740, age: 24, email: "pedro@email.com", phone: "809-123-4571", weight: 85, height: 1.88, available: true }
+        ];
+
+        let officials = [
+            { id: 1, name: "Ana Martinez", ranking: 9.2, matches: 15 },
+            { id: 2, name: "Pedro Gonzalez", ranking: 8.8, matches: 12 }
+        ];
+
+        let currentMatch = {
+            set: 1,
+            scoreA: 0,
+            scoreB: 0,
+            sets: [
+                { teamA: 0, teamB: 0 },
+                { teamA: 0, teamB: 0 },
+                { teamA: 0, teamB: 0 }
+            ],
+            teamA: [],
+            teamB: [],
+            currentAction: null,
+            currentTeam: null
+        };
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+                
+                // Update active tab button
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show/hide tab content
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+
+        // Update dashboard stats
+        function updateDashboard() {
+            document.getElementById('totalPlayers').textContent = players.length;
+            document.getElementById('totalOfficials').textContent = officials.length;
+            
+            // Update recent activity
+            const recentActivity = document.getElementById('recentActivity');
+            recentActivity.innerHTML = `
+                <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                    <i class="fas fa-user-plus text-green-500"></i>
+                    <span>Carlos Rodriguez registered as a field player</span>
+                    <span class="text-xs text-gray-500 ml-auto">2 hours ago</span>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                    <i class="fas fa-calendar text-blue-500"></i>
+                    <span>Monday match scheduled for 8:00 PM</span>
+                    <span class="text-xs text-gray-500 ml-auto">1 day ago</span>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-700 rounded">
+                    <i class="fas fa-trophy text-yellow-500"></i>
+                    <span>Miguel Santos leads goalie rankings</span>
+                    <span class="text-xs text-gray-500 ml-auto">2 days ago</span>
+                </div>
+            `;
+        }
+
+        // Update players table
+        function updatePlayersTable() {
+            const playersTable = document.getElementById('playersTable');
+            playersTable.innerHTML = players.map(player => `
+                <tr class="border-b border-gray-200 dark:border-gray-700">
+                    <td class="px-4 py-2">${player.name}</td>
+                    <td class="px-4 py-2">
+                        <span class="px-2 py-1 rounded text-xs ${player.position === 'goalie' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'}">
+                            ${player.position}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2 font-semibold">${player.ranking}</td>
+                    <td class="px-4 py-2">
+                        <span class="px-2 py-1 rounded text-xs ${player.available ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'}">
+                            ${player.available ? 'Available' : 'Unavailable'}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2">
+                        <button class="text-blue-600 hover:text-blue-800 mr-2" onclick="editPlayer(${player.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="text-red-600 hover:text-red-800" onclick="confirmDeletePlayer(${player.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Player registration
+        document.getElementById('playerRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const player = {
+                id: players.length + 1,
+                name: formData.get('name') || e.target.querySelector('input[placeholder="Full Name"]').value,
+                age: parseInt(formData.get('age') || e.target.querySelector('input[placeholder="Age"]').value),
+                email: formData.get('email') || e.target.querySelector('input[placeholder="Email"]').value,
+                phone: formData.get('phone') || e.target.querySelector('input[placeholder="Phone"]').value,
+                weight: parseFloat(formData.get('weight') || e.target.querySelector('input[placeholder="Weight (kg)"]').value),
+                height: parseFloat(formData.get('height') || e.target.querySelector('input[placeholder="Height (m)"]').value),
+                position: formData.get('position') || e.target.querySelector('select[name="position"]').value,
+                tshirtSize: formData.get('tshirtSize') || e.target.querySelector('select[name="tshirtSize"]').value,
+                swimsuitSize: formData.get('swimsuitSize') || e.target.querySelector('select[name="swimsuitSize"]').value,
+                ranking: 500, // Starting ranking
+                available: true
+            };
+            
+            players.push(player);
+            updatePlayersTable();
+            updateDashboard();
+            showMessage('Player registered successfully!', 'success');
+            e.target.reset();
+        });
+
+        // Official registration
+        document.getElementById('officialRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const official = {
+                id: officials.length + 1,
+                name: formData.get('name') || e.target.querySelector('input[placeholder="Full Name"]').value,
+                age: parseInt(formData.get('age') || e.target.querySelector('input[placeholder="Age"]').value),
+                email: formData.get('email') || e.target.querySelector('input[placeholder="Email"]').value,
+                phone: formData.get('phone') || e.target.querySelector('input[placeholder="Phone"]').value,
+                experience: formData.get('experience') || e.target.querySelector('select[name="experience"]').value,
+                ranking: 5.0,
+                matches: 0
+            };
+            
+            officials.push(official);
+            updateDashboard();
+            showMessage('Official registered successfully!', 'success');
+            e.target.reset();
+        });
+
+        // Team generation
+        document.getElementById('generateTeams').addEventListener('click', function() {
+            const availablePlayers = players.filter(p => p.available);
+            
+            if (availablePlayers.length < 4) {
+                showMessage('Not enough players available for a match (minimum 4)', 'error');
+                return;
+            }
+
+            // Separate goalies and field players
+            const goalies = availablePlayers.filter(p => p.position === 'goalie' || p.position === 'both');
+            const fieldPlayers = availablePlayers.filter(p => p.position === 'field' || p.position === 'both');
+            
+            if (goalies.length === 0) {
+                showMessage('No goalies available. A field player must play as goalie.', 'warning');
+                return;
+            }
+
+            // Sort players by ranking
+            goalies.sort((a, b) => b.ranking - a.ranking);
+            fieldPlayers.sort((a, b) => b.ranking - a.ranking);
+
+            const teamA = [];
+            const teamB = [];
+
+            // Distribute goalies
+            if (goalies.length >= 2) {
+                teamA.push(goalies[0]);
+                teamB.push(goalies[1]);
+            } else {
+                teamA.push(goalies[0]);
+                // Note: Single goalie scenario handled in game rules
+            }
+
+            // Distribute field players alternating by ranking
+            fieldPlayers.forEach((player, index) => {
+                if (index % 2 === 0) {
+                    teamA.push(player);
+                } else {
+                    teamB.push(player);
+                }
+            });
+
+            // Update team displays
+            updateTeamDisplay('teamA', teamA);
+            updateTeamDisplay('teamB', teamB);
+
+            currentMatch.teamA = teamA;
+            currentMatch.teamB = teamB;
+
+            showMessage('Teams generated successfully!', 'success');
+        });
+
+        function updateTeamDisplay(elementId, team) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = team.map(player => `
+                <div class="flex justify-between items-center">
+                    <span>${player.name}</span>
+                    <span class="text-xs bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">${player.position} (${player.ranking})</span>
+                </div>
+            `).join('');
+        }
+
+        // Scorekeeper functions
+        function addGoal(team) {
+            if (!currentMatch.teamA.length || !currentMatch.teamB.length) {
+                showMessage('Please generate teams first', 'error');
+                return;
+            }
+
+            showPlayerSelectionModal(team, 'goal');
+        }
+
+        function addStat(team, statType) {
+            if (!currentMatch.teamA.length || !currentMatch.teamB.length) {
+                showMessage('Please generate teams first', 'error');
+                return;
+            }
+
+            showPlayerSelectionModal(team, statType);
+        }
+
+        function addUnsportsmanlike(team) {
+            if (!currentMatch.teamA.length || !currentMatch.teamB.length) {
+                showMessage('Please generate teams first', 'error');
+                return;
+            }
+
+            showUnsportsmanlikeModal(team);
+        }
+
+        function showPlayerSelectionModal(team, action) {
+            const players = team === 'A' ? currentMatch.teamA : currentMatch.teamB;
+            const playersList = document.getElementById('playersList');
+            
+            currentMatch.currentTeam = team;
+            currentMatch.currentAction = action;
+            
+            playersList.innerHTML = players.map(player => `
+                <button class="w-full text-left p-3 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded" onclick="selectPlayer(${player.id})">
+                    ${player.name} (${player.position})
+                </button>
+            `).join('');
+            
+            document.getElementById('playerSelectionModal').classList.remove('hidden');
+        }
+
+        function selectPlayer(playerId) {
+            const action = currentMatch.currentAction;
+            const team = currentMatch.currentTeam;
+            
+            if (action === 'goal') {
+                if (team === 'A') {
+                    currentMatch.scoreA++;
+                    document.getElementById('scoreA').textContent = currentMatch.scoreA;
+                } else {
+                    currentMatch.scoreB++;
+                    document.getElementById('scoreB').textContent = currentMatch.scoreB;
+                }
+                
+                // Check for set win (first to 5)
+                if (currentMatch.scoreA === 5 || currentMatch.scoreB === 5) {
+                    const winner = currentMatch.scoreA === 5 ? 'A' : 'B';
+                    currentMatch.sets[currentMatch.set - 1] = {
+                        teamA: currentMatch.scoreA,
+                        teamB: currentMatch.scoreB
+                    };
+                    
+                    updateSetScores();
+                    showMessage(`Team ${winner} wins Set ${currentMatch.set}!`, 'success');
+                    
+                    // Reset scores for next set
+                    currentMatch.scoreA = 0;
+                    currentMatch.scoreB = 0;
+                    document.getElementById('scoreA').textContent = '0';
+                    document.getElementById('scoreB').textContent = '0';
+                    
+                    if (currentMatch.set < 3) {
+                        currentMatch.set++;
+                        document.getElementById('currentSet').value = currentMatch.set;
+                    }
+                }
+            }
+            
+            closePlayerModal();
+            showMessage(`${action} recorded for player!`, 'success');
+        }
+
+        function showUnsportsmanlikeModal(team) {
+            // Create custom unsportsmanlike behavior modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+                    <h3 class="text-lg font-bold mb-4">Unsportsmanlike Behavior</h3>
+                    <div class="space-y-3 mb-4">
+                        <button class="w-full text-left p-3 bg-yellow-100 dark:bg-yellow-900 hover:bg-yellow-200 dark:hover:bg-yellow-800 rounded" onclick="recordMisconduct('${team}', 1)">
+                            Level 1: Minor infraction (-2 points)
+                        </button>
+                        <button class="w-full text-left p-3 bg-orange-100 dark:bg-orange-900 hover:bg-orange-200 dark:hover:bg-orange-800 rounded" onclick="recordMisconduct('${team}', 2)">
+                            Level 2: Serious misconduct (-5 points)
+                        </button>
+                        <button class="w-full text-left p-3 bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 rounded" onclick="recordMisconduct('${team}', 3)">
+                            Level 3: Severe violation (-10 points)
+                        </button>
+                    </div>
+                    <div class="flex justify-end">
+                        <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" onclick="this.closest('.fixed').remove()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function recordMisconduct(team, level) {
+            const penalty = level === 1 ? -2 : level === 2 ? -5 : -10;
+            showMessage(`Level ${level} misconduct recorded (${penalty} points)`, 'warning');
+            
+            // Close the modal
+            document.querySelector('.fixed').remove();
+            
+            // Show player selection for the misconduct
+            showPlayerSelectionModal(team, `misconduct_${level}`);
+        }
+
+        function closePlayerModal() {
+            document.getElementById('playerSelectionModal').classList.add('hidden');
+        }
+
+        function updateSetScores() {
+            for (let i = 0; i < 3; i++) {
+                const setScore = currentMatch.sets[i];
+                document.getElementById(`set${i + 1}Score`).textContent = `${setScore.teamA} - ${setScore.teamB}`;
+            }
+        }
+
+        // Utility functions
+        function showMessage(message, type = 'info') {
+            const messageContainer = document.getElementById('messageContainer');
+            const messageDiv = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-green-500' : 
+                           type === 'error' ? 'bg-red-500' : 
+                           type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500';
+            
+            messageDiv.className = `${bgColor} text-white px-6 py-3 rounded-lg shadow-lg mb-2 transform transition-all duration-300`;
+            messageDiv.textContent = message;
+            
+            messageContainer.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.classList.add('opacity-0', 'translate-x-full');
+                setTimeout(() => messageContainer.removeChild(messageDiv), 300);
+            }, 3000);
+        }
+
+        function editPlayer(playerId) {
+            showMessage('Edit player functionality coming soon!', 'info');
+        }
+
+        function confirmDeletePlayer(playerId) {
+            // Create custom confirmation dialog
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">Are you sure you want to delete this player?</p>
+                    <div class="flex justify-end space-x-3">
+                        <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" onclick="this.closest('.fixed').remove()">Cancel</button>
+                        <button class="px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded" onclick="deletePlayer(${playerId}); this.closest('.fixed').remove();">Delete</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function deletePlayer(playerId) {
+            players = players.filter(p => p.id !== playerId);
+            updatePlayersTable();
+            updateDashboard();
+            showMessage('Player deleted successfully!', 'success');
+        }
+
+        // Initialize the app
+        updateDashboard();
+        updatePlayersTable();
+    </script>
+</body>
+</html>
